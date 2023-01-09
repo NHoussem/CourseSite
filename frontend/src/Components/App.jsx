@@ -1,10 +1,13 @@
 import React from "react";
-
+import AnnonceList from './AnnonceList';
+import Footer from './Footer';
 function App(){
     return(
-    <div className="App">
-        My APP
-    </div>
+        <div>
+            <AnnonceList/>
+            <Footer/>
+        </div>
+        
     );
 }
 export default App;
