@@ -1,12 +1,31 @@
 import React from "react";
-import AnnonceList from './AnnonceList';
-import Footer from './Footer';
+import DetailsAnnonce from "./AnnoceDetails";
+import { BrowserRouter  ,Route,Routes,useParams } from "react-router-dom";
+import Slider from "./CarouselSlider";
+import NavbarFilter from "./FilterCom";
+import FirstPageWAth from "../Pages/FirstPageWAth";
+import Scraper from "./Scrapper";
+import PosterPage from "../Pages/PosterPage";
+// import Filters from "./FilterCom";
+
 function App(){
     return(
-        <div>
-            <AnnonceList/>
-            <Footer/>
-        </div>
+        <Routes>
+            <Route path="/" element={<FirstPageWAth/>}/>
+            <Route path="AnnoceDetails/:id" element={<DetailsAnnonce/>}/>
+            <Route path="/Slider" element={<Slider/>}/>
+            <Route path="/Filter" element={<NavbarFilter/>}/>
+            <Route path="/Poster" element={<PosterPage/>}/>
+            <Route path="/ss" element={<Scraper/>}/>
+
+        </Routes>
+
+            /* <div>
+                <FiDiv/>
+                <AnnonceList/>
+                <Footer/>
+            </div> */
+        
         
     );
 }

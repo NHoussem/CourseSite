@@ -1,3 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.bg-PrincipalCol {
+    --tw-border-opacity: 1;
+    background-color: rgb(23 140 140 / var(--tw-border-opacity));
+  }
+.focus\:border-PrincCol:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(23 140 140 / var(--tw-border-opacity));
+}
+.bg-SecondryCol{
+  --tw-border-opacity: 1;
+    background-color: rgb(24 75 75 / var(--tw-border-opacity));
+}
+.aspect-image {
+  aspect-ratio: 16 / 7;
+}
+.border-PrincCol {
+  --tw-border-opacity: 1;
+  border-color: rgb(23 140 140 / var(--tw-border-opacity));
+}
+.text-PrincipalCol {
+  --tw-text-opacity: 1;
+  color: rgb(23 140 140 / var(--tw-text-opacity));
+}
+.slider {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 1000px;
+  height: 600px;
+  border-radius: 10px;
+}
+.imgdiv {
+  height:100px ;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 32px;
+  font-size: 3rem;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  font-size: 3rem;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.slide {
+  opacity: 0;
+  transition-duration: 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+

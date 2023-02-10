@@ -6,16 +6,19 @@ import Paginate from "./Paginate.jsx";
 let AnnonceList=()=>{
     const [annonces ,setAnnonces]=useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(6);
+    const [postsPerPage] = useState(8);
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = annonces.slice(indexOfFirstPost, indexOfLastPost);
+    
     useEffect(()=>{
         GetAnnonces()
+        
     },[]);
-
+    
     let GetAnnonces = async() => {
-        const response = await fetch("http://127.0.0.1:8000/api/annonces/")
+        console.log(`http://127.0.0.1:8000/api/teste/${window.location.search}`)
+        const response = await fetch(`http://127.0.0.1:8000/api/teste/${window.location.search}`)
         const data =await response.json()
         setAnnonces(data)
     }
@@ -37,7 +40,7 @@ let AnnonceList=()=>{
     return (
             <><div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 xl:grid-cols-4 mx-10">
             {currentPosts.map((annonce, id) => (
-                <Annonce key={id} Titre={annonce.Titre} DatePublication={annonce.DatePublication} Tarif={annonce.Tarif} localisation={annonce.Localisation.nomWilaya.nomWilaya+' '+annonce.Localisation.NomCommune.NomCommune+' '+annonce.Localisation.Immobilier.NumRue+' '+annonce.Localisation.Immobilier.NomRue+ ' '+annonce.Localisation.Immobilier.NumLogement}/>
+                <Annonce key={id} Annonceid={annonce.id} Titre={annonce.Titre} DatePublication={annonce.DatePublication} Tarif={annonce.Tarif} localisation={annonce.Wilaya+' '+annonce.Commune+' '+annonce.Immobilier}/>
             ))}
         </div><div >
                 <div className="flex flex-col justify-center items-center pt-1.5">
