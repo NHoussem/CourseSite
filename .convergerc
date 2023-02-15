@@ -1,0 +1,7 @@
+[run]
+source= authenticateion/,api/,
+omit=
+    pcas
+    */migrations/*
+    */tests/*
+    */__init__.py

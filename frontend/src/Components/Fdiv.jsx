@@ -8,7 +8,7 @@ function FiDiv() {
         <div className="relative m-4 mx-2">
             <ul>
                 <li className="absolute  grid grid-flow-col grid-cols-none justify-center items-center  w-full top-0 md:top-20">
-                    <SearchBar />
+                    {/* <SearchBar /> */}
                 </li>
                 <li className="grid absolute  p-4 w-full justify-center items-center top-10 md:top-32 ">
                     <h1 className="felx text-xs md:text-xl   font-bold truncate sm:text-clip lg:w-full justify-center items-center text-center">

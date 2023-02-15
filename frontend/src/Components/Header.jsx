@@ -1,8 +1,11 @@
-import React,{ useState } from "react";
+import React,{ useState,useContext } from "react";
+import AuthContext from '../context/AuthContext'
 
 function Heada(){
     const [navbar, setNavbar] = useState(false);
     const [dropdwon,setDrop]=useState(false)
+    let {user}=useContext(AuthContext)
+    // console.log({user})
     return(
         <nav className="w-full bg-white shadow">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -57,7 +60,7 @@ function Heada(){
                         </li>
                         <li className="flex justify-center text-black hover:text-indigo-200" >
                             <div>
-                                <button onClick={() => setDrop(!dropdwon)} id="dropdownMenuButton1" className="dropdown-toggle   px-6   py-2.5      text-black   font-medium   text-xs   leading-tight   uppercase   rounded        transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">Theme
+                                <button onClick={() => setDrop(!dropdwon)} id="dropdownMenuButton1" className="dropdown-toggle   px-6   py-2.5      text-black   font-medium   text-xs   leading-tight    rounded        transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">Theme
                                     <svg
                                         aria-hidden="true"
                                         focusable="false"
@@ -109,13 +112,13 @@ function Heada(){
 
                     <div className="lg:hidden md:hidden sm:inline-block sm:w-full">
                         <a
-                            href="/"
+                            href="/login"
                             className="inline-block  w-full px-4 m-2 py-3 text-center text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
                         >
                             Se connecter
                         </a>
                         <a
-                            href="/"
+                            href="/register"
                             className="inline-block   w-full px-4 py-3 m-2 text-center text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
                         >
                             S'inscire
@@ -125,13 +128,13 @@ function Heada(){
             </div>
             <div className="hidden  md:inline-block">
                 <a
-                    href="/"
+                    href="/login"
                     className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
                 >
                     Se connecter
                 </a>
                 <a
-                    href="/"
+                    href="/register"
                     className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
                 >
                     S'inscrire
