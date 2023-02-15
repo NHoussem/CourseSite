@@ -23,7 +23,7 @@ function Annonce(props){
                     </div>
                     <div className="p-2">
                         <h4 className=" text font-bold pt-2" >{props.Titre}</h4>
-                        <p className="max-10 pt-1.5">Date de Publication : {{props.DatePublication|date:"F Y" }}</p>
+                        <p className="max-10 pt-1.5">Date de Publication : {props.DatePublication}</p>
                         <p className="pt-1.5">Tarif: {props.Tarif}DA/heure</p>
                         <div className="flex flex-row mt-2 gap-2 pt-1.5">
                             <a href="/"><img src="https://picsum.photos/seed/1/40/40" className="rounded-full max-h-10 max-w-10" alt="ProfilePicture" /></a>

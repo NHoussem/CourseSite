@@ -5,7 +5,7 @@ function Heada(){
     const [navbar, setNavbar] = useState(false);
     const [dropdwon,setDrop]=useState(false)
     let {user}=useContext(AuthContext)
-    // console.log({user})
+    console.log(user)
     return(
         <nav className="w-full bg-white shadow">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -109,7 +109,21 @@ function Heada(){
                             <a href="/">Contactez-nous</a>
                         </li>
                     </ul>
-
+                   {user ? (
+                    <div className="lg:hidden md:hidden sm:inline-block sm:w-full">
+                        <a
+                            href="/"
+                            className="inline-block  w-full px-4 m-2 py-3 text-center text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                        >
+                            Logout
+                        </a>
+                        <p
+                            className="inline-block   w-full px-4 py-3 m-2 text-center text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                        >
+                            {user.username}
+                        </p>
+                    </div>
+                  ):(
                     <div className="lg:hidden md:hidden sm:inline-block sm:w-full">
                         <a
                             href="/login"
@@ -124,22 +138,43 @@ function Heada(){
                             S'inscire
                         </a>
                     </div>
+                  )}                  
                 </div>
             </div>
-            <div className="hidden  md:inline-block">
-                <a
-                    href="/login"
-                    className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
-                >
-                    Se connecter
-                </a>
-                <a
-                    href="/register"
-                    className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
-                >
-                    S'inscrire
-                </a>
-            </div>
+            {user ? (
+                <div className="hidden  md:inline-block">
+                    <a href="/"><img src="https://picsum.photos/seed/1/40/40" 
+                        className="px-4 py-2 m-1 rounded-full max-h-10 max-w-10" alt="ProfilePicture" />
+                    </a>
+                    <a
+                        href="/login"
+                        className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                    >
+                        Logout
+                    </a>
+                    <a
+                        href="/register"
+                        className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                    >
+                        {user.username}
+                    </a>
+                </div>
+            ):(
+                <div className="hidden  md:inline-block">
+                    <a
+                        href="/login"
+                        className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                    >
+                        Se connecter
+                    </a>
+                    <a
+                        href="/register"
+                        className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                    >
+                        S'inscrire
+                    </a>
+            </div>      
+            )}
         </div>
     </nav>
     );

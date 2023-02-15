@@ -43,7 +43,7 @@ export default function Login() {
                     </a>
                     <div className="mt-6">
                         <button  type='submit' className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
-                            Login
+                            <a href="/">Login</a>
                         </button>
                     </div>
                 </form>
@@ -52,7 +52,7 @@ export default function Login() {
                     {" "}
                     Don't have an account?{" "}
                     <a
-                        href=""
+                        href="/register"
                         className="font-medium text-purple-600 hover:underline"
                     >
                         Sign up

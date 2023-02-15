@@ -133,7 +133,7 @@ export default function Registration() {
                     <div className="mt-4 text-grey-600">
                         Already have an account?{" "}
                         <span>
-                            <a className="text-purple-600 hover:underline" href="#">
+                            <a className="text-purple-600 hover:underline" href="/login">
                                 Log in
                             </a>
                         </span>
