@@ -17,7 +17,7 @@ let AnnonceList=()=>{
     },[]);
     
     let GetAnnonces = async() => {
-        console.log(`http://127.0.0.1:8000/api/teste/${window.location.search}`)
+        // console.log(`http://127.0.0.1:8000/api/teste/${window.location.search}`)
         const response = await fetch(`http://127.0.0.1:8000/api/teste/${window.location.search}`)
         const data =await response.json()
         setAnnonces(data)

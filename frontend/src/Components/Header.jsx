@@ -4,7 +4,8 @@ import AuthContext from '../context/AuthContext'
 function Heada(){
     const [navbar, setNavbar] = useState(false);
     const [dropdwon,setDrop]=useState(false)
-    let {user}=useContext(AuthContext)
+    const [Userdropdwon,setUserDrop]=useState(false)
+    let {user,logoutUser}=useContext(AuthContext)
     console.log(user)
     return(
         <nav className="w-full bg-white shadow">
@@ -138,26 +139,43 @@ function Heada(){
                             S'inscire
                         </a>
                     </div>
-                  )}                  
+                  )}
+                                  
                 </div>
             </div>
             {user ? (
-                <div className="hidden  md:inline-block">
-                    <a href="/"><img src="https://picsum.photos/seed/1/40/40" 
-                        className="px-4 py-2 m-1 rounded-full max-h-10 max-w-10" alt="ProfilePicture" />
+                <div className="md:flex hidden md:items-center">
+                    <a
+                        href="/"
+                        className="p-2"
+                    >
+                        <img src={require('../images/notification.png')} className="h-6 w-6" alt="ProfilePicture" />
                     </a>
                     <a
-                        href="/login"
-                        className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                        href="/"
+                        className="p-2"
                     >
-                        Logout
+                        <img src={require('../images/message.png')} className="h-6 w-6" alt="ProfilePicture" />
                     </a>
                     <a
-                        href="/register"
-                        className="px-4 py-2 m-1 text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100"
+                        href="/Poster"
+                        className="p-2"
                     >
-                        {user.username}
+                        <img src={require('../images/add.png')} className="h-6 w-6" alt="ProfilePicture" />
                     </a>
+                    <div>
+                        <button onClick={() => setUserDrop(!Userdropdwon)} className="p-2 dropdown-toggle text-black   font-medium   text-xs   leading-tight    rounded        transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">
+                            <img src="https://picsum.photos/seed/1/40/40" className="rounded-full" alt="ProfilePicture" />
+                        </button>
+                        <ul  className={`dropdown-menu min-w-max  absolute bg-white  text-base  z-50  float-left  py-2  list-none  text-left  rounded-lg  shadow-lg  mt-1   m-0  bg-clip-padding  border-none ${Userdropdwon ? "block" : "hidden"}`}  aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="" onClick={() => setUserDrop(!Userdropdwon)} className="dropdown-item  text-sm  py-2  px-4  font-normal  block  w-full  whitespace-nowrap  bg-transparent  text-gray-700  hover:bg-gray-100">Parametres</a>
+                            </li>
+                            <li>
+                                <a href="" onClick={() => setUserDrop(!Userdropdwon)} className="dropdown-item  text-sm  py-2  px-4  font-normal  block  w-full  whitespace-nowrap  bg-transparent  text-gray-700  hover:bg-gray-100">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             ):(
                 <div className="hidden  md:inline-block">

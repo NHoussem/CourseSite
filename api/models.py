@@ -4,7 +4,6 @@ import uuid
 from django.contrib.auth.hashers import make_password
 from .constants import *
 from django.db import models
-from django.db import models
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.contrib.auth.models import (
     PermissionsMixin, UserManager, AbstractBaseUser)
@@ -66,6 +65,7 @@ class Photo(models.Model):
     idPhoto=models.UUIDField(default=uuid.uuid4,editable=False)
     # path=models.FilePathField()
     image=models.ImageField(upload_to="images/")
+    print(image)
     annonce=models.ForeignKey(Annonce,on_delete=models.CASCADE)
     def getAnnonceId(self):
         return self.annonce.getIdAnnonce()

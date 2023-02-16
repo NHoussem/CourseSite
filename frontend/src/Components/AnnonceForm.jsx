@@ -60,24 +60,30 @@ const AnnonceForm = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   
-  let createAnnonce = async()=>{
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Titre: 'React Hooks POST Request Example',
-      Categorie:'Primaire',
-      Tarif:100,
-      ThemeAnn:'Science',
-      Modalite:'Online' })
-      
-  };
-    
-    fetch(`http://127.0.0.1:8000/api/annonce/create/`,requestOptions)
-    .then(response => response.json())
+  let createAnnonce = async(e)=>{
+    let response = await fetch(`http://127.0.0.1:8000/api/annonce/create/`,{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify({
+          'Titre': Titre,
+          'Description': Description,
+          'Tarif': parseInt(Tarif),
+          'Categorie': Categorie,
+          'ThemeAnn': ThemeAnn,
+          'Modalite': Modalite,
+          'nomWilaya': selectedWilaya,
+          'NomCommune':selectedCommune,
+          'NumRue': '10',
+          'NomRue': 'Test street',
+          'NumLogement': '5'
+      })
+    })
+    console.log(response);
 }
 const handleSubmit = e => {
-  // e.preventDefault()
+  e.preventDefault()
   createAnnonce()
   history('/');
 };
@@ -98,7 +104,6 @@ const handleSubmit = e => {
                         placeholder="Entrer un titre"
                     />
             </FormGroup>
-          
             <div className='grid-cols-3'>
                 <FormGroup>
                         {/* <Label for="Catégorie">Catégorie</Label> */}
