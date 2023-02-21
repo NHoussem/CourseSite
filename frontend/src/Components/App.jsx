@@ -10,6 +10,7 @@ import Reg_Form from "./Register_form";
 import Login from "./Login_form";
 import {AuthProvider} from "../context/AuthContext"
 import PrivateRoutes from "../utils/PrivateRoutes"
+import CreateAnnonceForm from "./SecondAnncForm";
 // import Filters from "./FilterCom";
 
 function App(){
@@ -22,6 +23,7 @@ function App(){
                     <Route path="/Slider" element={<Slider/>}/>
                     <Route path="/Filter" element={<NavbarFilter/>}/>
                     <Route path="/Poster" element={<PosterPage/>}/>
+                    <Route path="/tata" element={<CreateAnnonceForm/>}/>
                     {/* <Route element={<PrivateRoutes/>}>
 
                     </Route> */}

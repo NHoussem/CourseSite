@@ -4,6 +4,15 @@ import { useDropzone } from 'react-dropzone';
 import { useNavigate,useParams } from "react-router-dom";
 
 const AnnonceForm = () => {
+  const [annonceData, setAnnonceData] = useState({
+    Titre: '',
+    Description: '',
+    Tarif: '',
+    Categorie: '',
+    ThemeAnn: '',
+    Modalite: '',
+    images: []
+  });
   const  AnnonceId  = useParams();
   let history = useNavigate()
   const [Titre, setTitle] = useState('');
@@ -39,6 +48,9 @@ const AnnonceForm = () => {
       'Zighoud Youcef'
     ],
   };
+  const handleFileInputChange = (event) => {
+    setImages(event.target.files);
+  };
   const handleCategorieChange = (event) => {
     setSelectedCategorie(event.target.value);
   }; 
@@ -57,31 +69,41 @@ const AnnonceForm = () => {
   const onDrop = acceptedImages => {
     setImages(acceptedImages);
   };
+  const handleImageChange = (event) => {
+    setAnnonceData({
+      ...annonceData,
+      images: event.target.files
+    });
+  };
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   
   let createAnnonce = async(e)=>{
-    let response = await fetch(`http://127.0.0.1:8000/api/annonce/create/`,{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
-      },
-      body:JSON.stringify({
-          'Titre': Titre,
-          'Description': Description,
-          'Tarif': parseInt(Tarif),
-          'Categorie': Categorie,
-          'ThemeAnn': ThemeAnn,
-          'Modalite': Modalite,
-          'nomWilaya': selectedWilaya,
-          'NomCommune':selectedCommune,
-          'NumRue': '10',
-          'NomRue': 'Test street',
-          'NumLogement': '5'
-      })
+    const formData = new FormData();
+    formData.append('Titre', Titre);
+    formData.append('Description', Description);
+    formData.append('Tarif', parseInt(Tarif));
+    formData.append('Categorie',Categorie);
+    formData.append('ThemeAnn', ThemeAnn);
+    formData.append('Modalite', Modalite);
+    formData.append('nomWilaya', selectedWilaya);
+    formData.append('NomCommune', selectedCommune);
+    formData.append('NumRue', '1');
+    formData.append('NomRue', 'NomRue');
+    formData.append('NumLogement', 'NumLogement');
+
+    for (let i = 0; i < annonceData.images.length; i++) {
+      formData.append('photos', annonceData.images[i]);
+    }
+    fetch(`http://127.0.0.1:8000/api/annonce/create/`, {
+      method: 'POST',
+      body: formData
     })
-    console.log(response);
-}
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+        history('/');
+  };
 const handleSubmit = e => {
   e.preventDefault()
   createAnnonce()
@@ -187,19 +209,20 @@ const handleSubmit = e => {
               />
             </FormGroup>
             <FormGroup>
-                <Label for="images" className="block text-gray-700 font-medium mb-2 mt-5">Images</Label>
+                <Label htmlFor="image" className="block text-gray-700 font-medium mb-2 mt-5">Images</Label>
                 <div {...getRootProps()}>
-                <input {...getInputProps()} />
+                <input type="file" multiple name="images" onChange={handleImageChange} />
                 <Button
+                  type="button"
                   className="bg-white rounded-lg border border-gray-300 py-2 px-4 block w-40 leading-5 text-gray-700 focus:outline-none focus:border-blue-500"
                 >
                     Charger images
                 </Button>
                 </div>
                 <div className="mt-4">
-                {images.map(image => (
+                {/* {images.map(image => (
                     <img key={image.path} src={image.path} alt={image.path} />
-                ))}
+                ))} */}
                 </div>
             </FormGroup>
             <div className='flex justify-center items-center '>
@@ -212,7 +235,6 @@ const handleSubmit = e => {
         
         </div>
 );
-};
-    
+              }
 
 export default AnnonceForm;

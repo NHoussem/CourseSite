@@ -105,8 +105,13 @@ class createAnnonce(APIView):
         NumRue=data.get('NumRue')
         NomRue=data.get('NomRue')
         NumLogement=data.get('NumLogement')
+        imgs = data.get('images')
+        print(imgs)
         # Get the corresponding Wilaya and Commune instances
         # wilaya = Wilaya.objects.filter(nomWilaya=nomwil)
+        wilaya=Wilaya.objects.get_or_create(
+            nomWilaya=nomwil
+        )
         wilaya=get_object_or_404(Wilaya ,nomWilaya= nomwil)
         commune = Commune.objects.get_or_create(
             NomCommune=Nomcomm,
@@ -137,7 +142,12 @@ class createAnnonce(APIView):
             Modalite=data.get('Modalite'),
             # Add any other fields you need to populate
         )
-
+        annonceObjec=get_object_or_404(Annonce,idAnnonce=annonce.idAnnonce)
+        for photo_file in request.FILES.getlist('photos'):
+            photo = Photo.objects.create(
+                image=photo_file,
+                annonce=annonce,
+            )
         # Return the serialized data for the new Annonce instance
         serializer = AnnonceSeria(annonce)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -167,9 +177,7 @@ class AuthUserAPIView(GenericAPIView):
 
 class RegisterApiView(GenericAPIView):
     authentication_classes = []
-
     serializer_class = RegisterSerializer
-
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
