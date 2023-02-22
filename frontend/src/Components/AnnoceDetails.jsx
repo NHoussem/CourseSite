@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect,useState, } from "react";
 import Heada from "./Header";
 import { Params,useParams } from "react-router-dom";
 import Slider from "./CarouselSlider";

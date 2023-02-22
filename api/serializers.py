@@ -2,6 +2,11 @@ from rest_framework.serializers import ModelSerializer,ReadOnlyField
 from .models import *
 from .models import User
 from rest_framework import serializers
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models.fields.files import ImageFieldFile
+
+
 
         
 class WilayaSeria(ModelSerializer):
@@ -51,16 +56,14 @@ class photoSeria(ModelSerializer):
     class Meta:
         model=Photo
         fields=('__all__')
-
 class RegisterSerializer(ModelSerializer):
     password = serializers.CharField(style={'input_type':'password'},
         max_length=128, min_length=6, write_only=True)
     phoneNumber = serializers.CharField(
         max_length=10, min_length=10, write_only=False)
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'password','phoneNumber')
+        fields = ('__all__')
         extra_kwargs={
             'password':{'write_only':True}
         }
@@ -68,9 +71,13 @@ class RegisterSerializer(ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
-class LoginSerializer(serializers.ModelSerializer):
+class LoginSerializer(ModelSerializer):
     password = serializers.CharField(
         max_length=128, min_length=6, write_only=True)
     class Meta:
         model = User
-        fields = ('email', 'username', 'password')
+        fields = ('__all__')
+class UserSerial(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username')

@@ -24,6 +24,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['username'] = user.username
+        token['profile_pic']=user.profile_pic.url
+        token['email']=user.email
         # ...
 
         return token
@@ -94,7 +96,7 @@ def getImages(request,pk):
     photo=Photo.objects.filter(annonce_id=pk)
     serialiser=photoSeria(photo,many=True)
     return Response(serialiser.data)
-    
+
 class createAnnonce(APIView):
     permission_classes = []
 
@@ -171,7 +173,6 @@ class AuthUserAPIView(GenericAPIView):
     permission_classes=(permissions.IsAuthenticated,)
     def get(self,request):
         user=request.user
-
         serializer=RegisterSerializer(user)
         return Response({'user':serializer.data})
 
@@ -195,15 +196,20 @@ class RegisterApiView(GenericAPIView):
 
 class LoginAPIView(GenericAPIView):
     authentication_classes = []
-    serializer_class = LoginSerializer
+    serializer_class = LoginSerializer 
     def post(self, request):
         email = request.data.get('email', None)
         password = request.data.get('password', None)
-
         user = authenticate(username=email, password=password)
-
         if user is not None:
+            print(user)
             serializer = self.serializer_class(user)
             token=MyTokenObtainPairSerializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)        
         return Response({'message': "Invalid credentials, try again"}, status=status.HTTP_401_UNAUTHORIZED)
+@api_view(['GET'])
+def getProfilPict(request,pk):
+    user=User.objects.filter(id=pk)
+    serialiser=UserSerial(user,many=False)
+    return Response(serialiser.data)
+    

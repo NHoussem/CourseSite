@@ -1,4 +1,5 @@
 import React,{ useState,useContext } from "react";
+import { json } from "react-router-dom";
 import AuthContext from '../context/AuthContext'
 
 function Heada(){
@@ -165,7 +166,7 @@ function Heada(){
                     </a>
                     <div>
                         <button onClick={() => setUserDrop(!Userdropdwon)} className="p-2 dropdown-toggle text-black   font-medium   text-xs   leading-tight    rounded        transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">
-                            <img src="https://picsum.photos/seed/1/40/40" className="rounded-full" alt="ProfilePicture" />
+                            <img src= {'http://127.0.0.1:8000'+user.profile_pic} className="rounded-full max-h-10 max-w-10" alt="ProfilePicture" />
                         </button>
                         <ul  className={`dropdown-menu min-w-max  absolute bg-white  text-base  z-50  float-left  py-2  list-none  text-left  rounded-lg  shadow-lg  mt-1   m-0  bg-clip-padding  border-none ${Userdropdwon ? "block" : "hidden"}`}  aria-labelledby="dropdownDefaultButton">
                             <li>
