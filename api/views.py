@@ -102,6 +102,7 @@ class createAnnonce(APIView):
 
     def post(self, request):
         data = request.data
+        user_id=data.get('utilisateur_id')
         nomwil = data.get('nomWilaya')
         Nomcomm = data.get('NomCommune')
         NumRue=data.get('NumRue')
@@ -109,6 +110,8 @@ class createAnnonce(APIView):
         NumLogement=data.get('NumLogement')
         imgs = data.get('images')
         print(imgs)
+        user=get_object_or_404(User,id=user_id)
+        print(user.username)
         # Get the corresponding Wilaya and Commune instances
         # wilaya = Wilaya.objects.filter(nomWilaya=nomwil)
         wilaya=Wilaya.objects.get_or_create(
@@ -142,6 +145,7 @@ class createAnnonce(APIView):
             Categorie=data.get('Categorie'),
             ThemeAnn=data.get('ThemeAnn'),
             Modalite=data.get('Modalite'),
+            personne=user,
             # Add any other fields you need to populate
         )
         annonceObjec=get_object_or_404(Annonce,idAnnonce=annonce.idAnnonce)
@@ -207,9 +211,3 @@ class LoginAPIView(GenericAPIView):
             token=MyTokenObtainPairSerializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)        
         return Response({'message': "Invalid credentials, try again"}, status=status.HTTP_401_UNAUTHORIZED)
-@api_view(['GET'])
-def getProfilPict(request,pk):
-    user=User.objects.filter(id=pk)
-    serialiser=UserSerial(user,many=False)
-    return Response(serialiser.data)
-    

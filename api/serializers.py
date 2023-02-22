@@ -48,7 +48,10 @@ class AnnonceSeria(ModelSerializer):
         representation["Wilaya"] = instance.Localisation.nomWilaya.nomWilaya
         representation["Commune"] = instance.Localisation.NomCommune.NomCommune
         representation["Immobilier"] =f'{"Numero Rue:"} {instance.Localisation.Immobilier.NumRue} {"Nom Rue:"}{instance.Localisation.Immobilier.NomRue} {instance.Localisation.Immobilier.NumLogement}'
-
+        representation["user_username"]=instance.personne.username
+        representation["user_email"]=instance.personne.email
+        representation["user_phoneNumber"]=instance.personne.phoneNumber
+        representation["user_profilepicture"]=instance.personne.profile_pic.url
         return representation
 
 class photoSeria(ModelSerializer):
@@ -77,7 +80,3 @@ class LoginSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ('__all__')
-class UserSerial(ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username')

@@ -1,9 +1,11 @@
-import React, { useState, } from 'react';
+import React, { useContext, useState, } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate,useParams } from "react-router-dom";
+import AuthContext from '../context/AuthContext';
 
 const AnnonceForm = () => {
+  let {user}=useContext(AuthContext)
   const [annonceData, setAnnonceData] = useState({
     Titre: '',
     Description: '',
@@ -11,7 +13,8 @@ const AnnonceForm = () => {
     Categorie: '',
     ThemeAnn: '',
     Modalite: '',
-    images: []
+    images: [],
+    utilisateur_id:0,
   });
   const  AnnonceId  = useParams();
   let history = useNavigate()
@@ -79,6 +82,7 @@ const AnnonceForm = () => {
 
   
   let createAnnonce = async(e)=>{
+    console.log(user)
     const formData = new FormData();
     formData.append('Titre', Titre);
     formData.append('Description', Description);
@@ -91,6 +95,7 @@ const AnnonceForm = () => {
     formData.append('NumRue', '1');
     formData.append('NomRue', 'NomRue');
     formData.append('NumLogement', 'NumLogement');
+    formData.append('utilisateur_id',user.user_id)
 
     for (let i = 0; i < annonceData.images.length; i++) {
       formData.append('photos', annonceData.images[i]);

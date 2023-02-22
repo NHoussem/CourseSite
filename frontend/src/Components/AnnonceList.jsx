@@ -40,7 +40,7 @@ let AnnonceList=()=>{
     return (
             <><div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 xl:grid-cols-4 mx-10">
             {currentPosts.map((annonce, id) => (
-                <Annonce key={id} Annonceid={annonce.id} Titre={annonce.Titre} DatePublication={annonce.DatePublication} Tarif={annonce.Tarif} localisation={annonce.Wilaya+' '+annonce.Commune+' '+annonce.Immobilier}/>
+                <Annonce key={id} Annonceid={annonce.id} Titre={annonce.Titre} DatePublication={annonce.DatePublication} Tarif={annonce.Tarif} localisation={annonce.Wilaya+' '+annonce.Commune+' '+annonce.Immobilier} user_username={annonce.user_username} user_profile_pic={annonce.user_profilepicture}/>
             ))}
         </div><div >
                 <div className="flex flex-col justify-center items-center pt-1.5">

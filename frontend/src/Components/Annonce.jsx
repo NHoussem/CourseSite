@@ -26,8 +26,8 @@ function Annonce(props){
                         <p className="max-10 pt-1.5">Date de Publication : {props.DatePublication}</p>
                         <p className="pt-1.5">Tarif: {props.Tarif}DA/heure</p>
                         <div className="flex flex-row mt-2 gap-2 pt-1.5">
-                            <a href="/"><img src="https://picsum.photos/seed/1/40/40" className="rounded-full max-h-10 max-w-10" alt="ProfilePicture" /></a>
-                            <a className="text-gray-400 text-xs mt-2 hover:text-gray-700" href="/"> Houssem </a>
+                            <a href="/"><img src={'http://127.0.0.1:8000'+props.user_profile_pic} className="rounded-full max-h-10 max-w-10" alt="ProfilePicture" /></a>
+                            <a className="text-gray-400 text-xs mt-2 hover:text-gray-700" href="/"> {props.user_username} </a>
                         </div>
                         <div className="flex flex-col justify-center items-center pt-1.5">
                             <a href={path} className="text-[#178C8C] border border-[#178C8C] hover:bg-[#175D8A] hover:text-white active:bg-[#175D8A] font-bold  px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Plus d'information </a>

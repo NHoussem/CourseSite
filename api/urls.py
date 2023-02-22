@@ -15,7 +15,6 @@ urlpatterns= [
     path('wilayas/',views.getWilaya,name='wilayas'),
     path('communes/',views.getCommune,name='Communes'),
     path('annonces/<str:pk>/',views.getAnnonce,name='Communes'),
-    path('user/<str:pk>/',views.getProfilPict,name='Profile picture'),
     path('Adresses/',views.getLocalisations,name='adresses'),
     path('photo/<str:pk>/',views.getImages,name='AnnoncePhotos'),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),

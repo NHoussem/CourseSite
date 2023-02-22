@@ -151,7 +151,7 @@ class Annonce(models.Model):
     Categorie=models.CharField(max_length=20,choices=CATEGORIES)
     ThemeAnn=models.CharField(max_length=20,choices=THEMES)
     Modalite=models.CharField(max_length=20,choices=MODALITIES)
-    # personne=models.ForeignKey(User,auto_created=True,on_delete=models.CASCADE
+    personne=models.ForeignKey(User,on_delete=models.CASCADE)
     Localisation=models.ForeignKey(Adresse,on_delete=models.CASCADE,related_name='AnnonceLoca')
     def getIdAnnonce(self):
         return self.idAnnonce
