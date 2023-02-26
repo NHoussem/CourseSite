@@ -168,7 +168,7 @@ function Heada(){
                         <button onClick={() => setUserDrop(!Userdropdwon)} className="p-2 dropdown-toggle text-black   font-medium   text-xs   leading-tight    rounded        transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">
                             <img src= {'http://127.0.0.1:8000'+user.profile_pic} className="rounded-full max-h-10 max-w-10" alt="ProfilePicture" />
                         </button>
-                        <ul  className={`dropdown-menu min-w-max  absolute bg-white  text-base  z-50  float-left  py-2  list-none  text-left  rounded-lg  shadow-lg  mt-1   m-0  bg-clip-padding  border-none ${Userdropdwon ? "block" : "hidden"}`}  aria-labelledby="dropdownDefaultButton">
+                        <ul  className={`dropdown-menu min-w-max  absolute bg-white  text-base  float-left m-4  list-none  text-left  rounded-lg  shadow-lg  mt-1   m-0  bg-clip-padding  border-none ${Userdropdwon ? "block" : "hidden"}`}  aria-labelledby="dropdownDefaultButton">
                             <li>
                                 <a href="" onClick={() => setUserDrop(!Userdropdwon)} className="dropdown-item  text-sm  py-2  px-4  font-normal  block  w-full  whitespace-nowrap  bg-transparent  text-gray-700  hover:bg-gray-100">Parametres</a>
                             </li>   

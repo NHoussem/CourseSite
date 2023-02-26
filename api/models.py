@@ -13,9 +13,6 @@ import jwt
 from datetime import datetime, timedelta
 
 
-from django.conf import settings
-
-
 class Wilaya(models.Model):
     nomWilaya=models.CharField(max_length=25 ,primary_key=True,choices=WILAYAS)
 
