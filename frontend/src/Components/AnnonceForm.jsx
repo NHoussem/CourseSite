@@ -92,9 +92,7 @@ const AnnonceForm = () => {
     formData.append('Modalite', Modalite);
     formData.append('nomWilaya', selectedWilaya);
     formData.append('NomCommune', selectedCommune);
-    formData.append('NumRue', '1');
-    formData.append('NomRue', 'NomRue');
-    formData.append('NumLogement', 'NumLogement');
+    formData.append('Lieu', Lieu);
     formData.append('utilisateur_id',user.user_id)
 
     for (let i = 0; i < annonceData.images.length; i++) {

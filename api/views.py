@@ -105,8 +105,7 @@ class createAnnonce(APIView):
         user_id=data.get('utilisateur_id')
         nomwil = data.get('nomWilaya')
         Nomcomm = data.get('NomCommune')
-        NumRue=data.get('NumRue')
-        NomRue=data.get('NomRue')
+        Lieu=data.get('Lieu')
         NumLogement=data.get('NumLogement')
         imgs = data.get('images')
         print(imgs)
@@ -124,11 +123,9 @@ class createAnnonce(APIView):
             )
         commune=get_object_or_404(Commune ,NomCommune= Nomcomm)
         bienImob=BienImmob.objects.get_or_create(
-            NumRue=NumRue,
-            NomRue=NomRue,
-            NumLogement=NumLogement,
+            Lieu=Lieu,
         )
-        bienImob=get_object_or_404(BienImmob ,NumRue= NumRue ,NomRue=NomRue,NumLogement=NumLogement)
+        bienImob=get_object_or_404(BienImmob ,Lieu= Lieu)
         # Create a new Localisation instance
         localisation = Adresse.objects.create(
             nomWilaya=wilaya,
@@ -211,3 +208,31 @@ class LoginAPIView(GenericAPIView):
             token=MyTokenObtainPairSerializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)        
         return Response({'message': "Invalid credentials, try again"}, status=status.HTTP_401_UNAUTHORIZED)
+
+class CreateCommune(APIView):
+    def post(self,request):
+        data=request.data
+        Communes=[]
+        for item in data:
+            wilay=item['nomWilaya']
+            nomCom=item['nomCommune']
+            NomWilaya=get_object_or_404(Wilaya,nomWilaya=wilay)
+            commune=Commune.objects.create(
+                NomCommune=nomCom,
+                nomWilaya=NomWilaya
+            )
+            serializer = CommuneSeria(commune)
+            Communes.append(serializer.data)
+        return Response(Communes,status=status.HTTP_201_CREATED)
+class CreateWilaya(APIView):
+    def post(self,request):
+        data = request.data
+        wilayas = []
+        for item in data:
+            wila = item['nomWilaya']
+            wilaya = Wilaya.objects.create(nomWilaya=wila)
+            serializer = WilayaSeria(wilaya)
+            wilayas.append(serializer.data)
+
+        return Response(wilayas, status=status.HTTP_201_CREATED)
+

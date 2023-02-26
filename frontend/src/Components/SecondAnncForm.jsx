@@ -52,7 +52,7 @@ function CreateAnnonceForm() {
     formData.append('Categorie',"Lycée");
     formData.append('ThemeAnn', "Math");
     formData.append('Modalite', "Online");
-    formData.append('nomWilaya', "Adrar");
+    formData.append('nomWilaya', "1");
     formData.append('NomCommune', "alger");
     formData.append('NumRue', "10");
     formData.append('NomRue', "Test street");

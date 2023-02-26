@@ -47,8 +47,7 @@ class AnnonceSeria(ModelSerializer):
         representation["Modalite"] = instance.Modalite
         representation["Wilaya"] = instance.Localisation.nomWilaya.nomWilaya
         representation["Commune"] = instance.Localisation.NomCommune.NomCommune
-        representation["Immobilier"] =f'{"Numero Rue:"} {instance.Localisation.Immobilier.NumRue} {"Nom Rue:"}{instance.Localisation.Immobilier.NomRue} {instance.Localisation.Immobilier.NumLogement}'
-        representation["user_username"]=instance.personne.username
+        representation["Immobilier"] =instance.Localisation.Immobilier.Lieu
         representation["user_email"]=instance.personne.email
         representation["user_phoneNumber"]=instance.personne.phoneNumber
         representation["user_profilepicture"]=instance.personne.profile_pic.url

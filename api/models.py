@@ -21,7 +21,7 @@ class Wilaya(models.Model):
 
 class Commune(models.Model):
     idCommune=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    NomCommune=models.CharField(max_length=20)
+    NomCommune=models.CharField(max_length=20,choices=COMMUNES)
     nomWilaya=models.ForeignKey(Wilaya,on_delete=models.DO_NOTHING,related_name='CommuneDewila')
     
     def __str__(self):
@@ -29,11 +29,10 @@ class Commune(models.Model):
 
 
 class BienImmob(models.Model):
-    NumRue=models.IntegerField()
-    NomRue=models.CharField(max_length=100)
-    NumLogement=models.CharField(max_length=100)
-    class Meta:
-        unique_together = (('NumRue', 'NomRue','NumLogement'),)
+    Lieu=models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.Lieu
 
 class Adresse(models.Model):
     idAdresse=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)

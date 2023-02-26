@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 WILAYAS = [
     ( '0', 'International'),
-    ( 'Adrar', '01- {}'.format(_('Adrar')) ),
+    ( '1', '01- {}'.format(_('1')) ),
     ( 'Chlef', '02- {}'.format(_('Chlef')) ),
     ( 'Laghouat', '03- {}'.format(_('Laghouat')) ),
     ( 'Oum El Bouaghi', '04- {}'.format(_('Oum El Bouaghi')) ),
