@@ -13,6 +13,7 @@ import PrivateRoutes from "../utils/PrivateRoutes"
 import CreateAnnonceForm from "./SecondAnncForm";
 import LeftSettinComp from "./LeftSettinComp";
 import AccountDetails from "./AccountDetailsComp";
+import Settings from "../Pages/Settings";
 // import Filters from "./FilterCom";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
                 <Route path="/ss" element={<Scraper />} />
                 <Route path="/Register" element={<Reg_Form />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/Settings" element={<LeftSettinComp />} />
+                <Route path="/Settings" element={<Settings />} />
                 <Route path="/AccountDetails" element={<AccountDetails />} />
 
             </Routes>
