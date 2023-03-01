@@ -49,6 +49,7 @@ class AnnonceSeria(ModelSerializer):
         representation["Commune"] = instance.Localisation.NomCommune.NomCommune
         representation["Immobilier"] =instance.Localisation.Immobilier.Lieu
         representation["user_email"]=instance.personne.email
+        representation["user_username"]=instance.personne.username
         representation["user_phoneNumber"]=instance.personne.phoneNumber
         representation["user_profilepicture"]=instance.personne.profile_pic.url
         return representation

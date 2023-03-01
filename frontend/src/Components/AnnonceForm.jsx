@@ -3,8 +3,8 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate, useParams } from "react-router-dom";
 import AuthContext from '../context/AuthContext';
-import Wilayas from './Wlayas.json'
-import Communes from './Communes.json'
+import Wilayas from '../data/Wlayas.json'
+import Communes from '../data/Communes.json'
 
 const AnnonceForm = () => {
   const inputImages = useRef(null);
@@ -125,12 +125,12 @@ const AnnonceForm = () => {
               {/* <Label for="Theme">Thème</Label> */}
               <select value={ThemeAnn} onChange={handleThemeChange} className="text-black m-10 px-4 py-2 rounded-md shadow hover:bg-gray-100">
                 <option className='text-black ' value="" >Thème</option>
-                <option value="Alger" className='text-black'>Science</option>
-                <option value="Oran" className='text-black'>Physique</option>
-                <option value="Constantine" className='text-black'>Mathématique</option>
-                <option value="Alger" className='text-black'>Arabic</option>
-                <option value="Oran" className='text-black'>Français</option>
-                <option value="Constantine" className='text-black'>Anglais</option>
+                <option value="Science" className='text-black'>Science</option>
+                <option value="Physique" className='text-black'>Physique</option>
+                <option value="Mathématique" className='text-black'>Mathématique</option>
+                <option value="Arabic" className='text-black'>Arabic</option>
+                <option value="Français" className='text-black'>Français</option>
+                <option value="Anglais" className='text-black'>Anglais</option>
               </select>
               {/* <Label for="Theme">Modalité</Label> */}
               <select value={Modalite} onChange={handleModalitChange} className="text-black m-10 px-4 py-2  rounded-md shadow hover:bg-gray-100">

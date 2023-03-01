@@ -14,40 +14,47 @@ from datetime import datetime, timedelta
 
 
 class Wilaya(models.Model):
-    nomWilaya=models.CharField(max_length=25 ,primary_key=True,choices=WILAYAS)
+    nomWilaya = models.CharField(
+        max_length=25, primary_key=True, choices=WILAYAS)
 
     def __str__(self):
         return str(self.nomWilaya)
 
+
 class Commune(models.Model):
-    idCommune=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    NomCommune=models.CharField(max_length=20,choices=COMMUNES)
-    nomWilaya=models.ForeignKey(Wilaya,on_delete=models.DO_NOTHING,related_name='CommuneDewila')
-    
+    idCommune = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    NomCommune = models.CharField(max_length=20, choices=COMMUNES)
+    nomWilaya = models.ForeignKey(
+        Wilaya, on_delete=models.DO_NOTHING, related_name='CommuneDewila')
+
     def __str__(self):
         return self.NomCommune
 
 
 class BienImmob(models.Model):
-    Lieu=models.CharField(max_length=200)
-    
+    Lieu = models.CharField(max_length=200)
+
     def __str__(self):
         return self.Lieu
 
+
 class Adresse(models.Model):
-    idAdresse=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    nomWilaya=models.ForeignKey(Wilaya,on_delete=models.CASCADE,related_name='AdresseWilaya')
-    NomCommune=models.ForeignKey(Commune,on_delete=models.CASCADE,related_name='AdresseCommune')
-    Immobilier=models.ForeignKey(BienImmob,on_delete=models.CASCADE,related_name='AdresseBienImob')
+    idAdresse = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    nomWilaya = models.ForeignKey(
+        Wilaya, on_delete=models.CASCADE, related_name='AdresseWilaya')
+    NomCommune = models.ForeignKey(
+        Commune, on_delete=models.CASCADE, related_name='AdresseCommune')
+    Immobilier = models.ForeignKey(
+        BienImmob, on_delete=models.CASCADE, related_name='AdresseBienImob')
 
     def getidCommune(self):
         return self.NomCommune.NomCommune
 
 
-
-
 class MyUserManager(UserManager):
-    def _create_user(self, username, email,phoneNumber,password,**extra_fields):
+    def _create_user(self, username, email, phoneNumber, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
         """
@@ -60,17 +67,18 @@ class MyUserManager(UserManager):
 
         email = self.normalize_email(email)
         username = self.model.normalize_username(username)
-        user = self.model(username=username, email=email,phoneNumber=phoneNumber, **extra_fields)
+        user = self.model(username=username, email=email,
+                          phoneNumber=phoneNumber, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, email,phoneNumber, password=None, **extra_fields):
+    def create_user(self, username, email, phoneNumber, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(username, email,phoneNumber,password,**extra_fields)
+        return self._create_user(username, email, phoneNumber, password, **extra_fields)
 
-    def create_superuser(self, username, email,phoneNumber,  password=None, **extra_fields):
+    def create_superuser(self, username, email, phoneNumber,  password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         if extra_fields.get('is_staff') is not True:
@@ -78,7 +86,7 @@ class MyUserManager(UserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(username, email,phoneNumber,  password, **extra_fields)
+        return self._create_user(username, email, phoneNumber,  password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -100,8 +108,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         },
     )
     email = models.EmailField(_('email address'), blank=False, unique=True)
-    profile_pic=models.ImageField(null=True,default=r"../media/images/11zon_cropped_3_DvDI5th.png",upload_to="images/")
-    phoneNumber= models.CharField(max_length=10,unique=True)
+    profile_pic = models.ImageField(
+        null=True, default=r"../media/images/man.png", upload_to="images/")
+    phoneNumber = models.CharField(max_length=10, unique=True)
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -128,7 +137,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = MyUserManager()
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phoneNumber','username']
+    REQUIRED_FIELDS = ['phoneNumber', 'username']
 
     # @property
     # def token(self):
@@ -138,22 +147,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     #         settings.SECRET_KEY, algorithm='HS256')
     #     return token
 
+
 class Annonce(models.Model):
-    idAnnonce=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    Titre=models.CharField(max_length=50)
-    Description = models.TextField(max_length=500,null=True)
+    idAnnonce = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    Titre = models.CharField(max_length=50)
+    Description = models.TextField(max_length=500, null=True)
     Tarif = models.IntegerField()
-    DatePublication=models.DateTimeField(auto_now_add=True)
-    Categorie=models.CharField(max_length=20,choices=CATEGORIES)
-    ThemeAnn=models.CharField(max_length=20,choices=THEMES)
-    Modalite=models.CharField(max_length=20,choices=MODALITIES)
-    personne=models.ForeignKey(User,on_delete=models.CASCADE)
-    Localisation=models.ForeignKey(Adresse,on_delete=models.CASCADE,related_name='AnnonceLoca')
+    DatePublication = models.DateTimeField(auto_now_add=True)
+    Categorie = models.CharField(max_length=20, choices=CATEGORIES)
+    ThemeAnn = models.CharField(max_length=20, choices=THEMES)
+    Modalite = models.CharField(max_length=20, choices=MODALITIES)
+    personne = models.ForeignKey(User, on_delete=models.CASCADE)
+    Localisation = models.ForeignKey(
+        Adresse, on_delete=models.CASCADE, related_name='AnnonceLoca')
+
     def getIdAnnonce(self):
         return self.idAnnonce
+
+
 class Photo(models.Model):
-    idPhoto=models.UUIDField(default=uuid.uuid4,editable=False)
-    image=models.ImageField(upload_to="images/")
-    annonce=models.ForeignKey(Annonce,on_delete=models.CASCADE)
+    idPhoto = models.UUIDField(default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to="images/")
+    annonce = models.ForeignKey(Annonce, on_delete=models.CASCADE)
+
     def getAnnonceId(self):
         return self.annonce.getIdAnnonce()
