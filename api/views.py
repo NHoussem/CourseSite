@@ -7,7 +7,7 @@ from .models import *
 from .serializers import *
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework.generics import ListCreateAPIView,GenericAPIView
+from rest_framework.generics import ListCreateAPIView,GenericAPIView,UpdateAPIView
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth import authenticate
 from django.contrib import messages
@@ -16,6 +16,8 @@ from api.filters import AnnonceFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated   
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -235,4 +237,33 @@ class CreateWilaya(APIView):
             wilayas.append(serializer.data)
 
         return Response(wilayas, status=status.HTTP_201_CREATED)
+
+class ChangePasswordView(UpdateAPIView):
+    serializer_class=ChangePasswordSerializer
+    models=User
+    permission_classes=(IsAuthenticated,)
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+    def update(self,request,*args,**kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        print(serializer)
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

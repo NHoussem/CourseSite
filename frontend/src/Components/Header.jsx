@@ -170,7 +170,7 @@ function Heada(){
                         </button>
                         <ul  className={`dropdown-menu min-w-max  absolute bg-white  text-base  z-50  float-left  py-2  list-none  text-left  rounded-lg  shadow-lg  mt-1   m-0  bg-clip-padding  border-none ${Userdropdwon ? "block" : "hidden"}`}  aria-labelledby="dropdownDefaultButton">
                             <li>
-                                <a href="" onClick={() => setUserDrop(!Userdropdwon)} className="dropdown-item  text-sm  py-2  px-4  font-normal  block  w-full  whitespace-nowrap  bg-transparent  text-gray-700  hover:bg-gray-100">Parametres</a>
+                                <a href="/Settings" onClick={() => setUserDrop(!Userdropdwon)} className="dropdown-item  text-sm  py-2  px-4  font-normal  block  w-full  whitespace-nowrap  bg-transparent  text-gray-700  hover:bg-gray-100">Parametres</a>
                             </li>   
                             <li>
                                 <a href="/" onClick={logoutUser} className="dropdown-item  text-sm  py-2  px-4  font-normal  block  w-full  whitespace-nowrap  bg-transparent  text-gray-700  hover:bg-gray-100">Logout</a>

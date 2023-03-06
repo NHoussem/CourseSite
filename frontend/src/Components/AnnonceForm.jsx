@@ -62,7 +62,7 @@ const AnnonceForm = () => {
 
 
   let createAnnonce = async (e) => {
-    console.log(user)
+    // console.log(user)
     const formData = new FormData();
     formData.append('Titre', Titre);
     formData.append('Description', Description);
