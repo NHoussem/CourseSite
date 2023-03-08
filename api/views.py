@@ -267,3 +267,36 @@ class ChangePasswordView(UpdateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class updateUser(UpdateAPIView):
+    serializer_class=UpdateProfileSerializer
+    models=User
+    permission_classes=(IsAuthenticated,)
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+    def update(self,request,*args,**kargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        data=request.data
+        if serializer.is_valid():
+            
+            # usrname=data['username']
+            # photo=request.FILES.getlist('profile_pic')
+            # print(photo)
+            usr=get_object_or_404(User,email=self.object)
+            if(data['username']!=usr.username)
+            # print(usr)
+            # usr.username=usrname
+            for photo_file in request.FILES.getlist('profile_pic'):
+                usr.profile_pic=photo_file
+            
+            usr.save()
+            response = {
+                    'status': 'success',
+                    'code': status.HTTP_200_OK,
+                    'message': 'username updated successfully',
+                    'data': []
+                }
+            return Response(response)
+        return Response(serializer.error,status=status.HTTP_400_BAD_REQUEST)
+    

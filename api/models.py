@@ -131,7 +131,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text=_(
             'Designates whether this users email is verified. '
-
         ),
     )
     objects = MyUserManager()

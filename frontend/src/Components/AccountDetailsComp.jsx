@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useRef } from "react";
 import AuthContext from "../context/AuthContext";
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from "react-router-dom";
 function AccountDetails() {
+    const inputImages = useRef(null);
     let history = useNavigate()
     let {user,authTokens}=useContext(AuthContext)
     let length = "Houssem".length
     const [Password1,setPassword1]=useState('')
     const [Password2,setPassword2]=useState('')
     const [oldPAssword,setOldPass]=useState('')
+    const [image, setImage] = useState(null);
     const handlePass1Change =(event)=>{
         setPassword1(event.target.value)
     }
@@ -18,12 +20,17 @@ function AccountDetails() {
     const handleOldPassword =(event)=>{
         setOldPass(event.target.value)
     }
+    const handleInputImage=(e)=>{
+        setImage(e.target.files[0]);
+    }
+    const handleImageChange=(e)=>{
+        inputImages.current.click()
+    }
     let ChangePassword=async(e)=>{
-        console.log(oldPAssword)
         const formData = new FormData();
         formData.append('old_password', oldPAssword);
         formData.append('new_password', Password1);
-        console.log(formData)
+        
         const response = await fetch('http://127.0.0.1:8000/api/ChangePassword/',{
             method:'PUT',
             headers:{
@@ -36,9 +43,32 @@ function AccountDetails() {
             .catch(error=>console.error(error));
             // history('/');
     }
+    let ChangeInfos=async(e)=>{
+        const formData = new FormData();
+        formData.append('profile_pic', image);
+        console.log(authTokens.access)
+        const response = await fetch(`http://127.0.0.1:8000/api/updateUserInfo/`,{
+            method:'PUT',
+            headers:{
+                'Authorization':'Bearer '+String(authTokens.access)
+            },
+            body: formData
+            // formData
+            // JSON.stringify({
+            //     'profile_pic':image
+            // })
+        })
+            .then(response=>response.json())
+            .then(data=>console.log(data))
+            .catch(error=>console.error(error));
+            // history('/');
+    }
     const handleSubmit = e => {
         e.preventDefault()
-        ChangePassword()
+        // if(oldPAssword!=='' && Password1!==''){
+        //     ChangePassword()
+        // }
+        ChangeInfos()
         // history('/');
       };
     return (
@@ -63,6 +93,14 @@ function AccountDetails() {
                     <input type="text" className="border-2 border-gray-200 py-1 px-2 mx-10 shadow-lg " onChange={handlePass1Change}/>
                     <label htmlFor="OldPassword" className="my-2"  >Confirmer le nouveau mot de passe</label>
                     <input type="text" className="border-2  border-gray-200 py-1 px-2 mx-10 shadow-lg" onChange={handlePass2Change}/>
+                    <label htmlFor="newProfilePicutre" className="my-2"  >Changez votre photo de profile</label>
+                    <input type="file" ref={inputImages} className="hidden" onChange={handleInputImage} />
+                    <button 
+                        type="button"
+                        onClick={handleImageChange}
+                        className="bg-white rounded-lg border border-gray-300 py-2 px-4 block w-40 leading-5 text-gray-700 focus:outline-none focus:border-blue-500"
+
+                    >Charger image</button>
                 </div>
                 <div className="flex items-center justify-center">
                     <button type="submit" onClick={handleSubmit} className="px-5 m-4 py-2 text-center text-white bg-PrincipalCol rounded-md shadow hover:bg-gray-100">

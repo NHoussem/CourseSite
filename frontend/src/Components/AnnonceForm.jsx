@@ -78,6 +78,7 @@ const AnnonceForm = () => {
     for (let i = 0; i < annonceData.images.length; i++) {
       formData.append('photos', annonceData.images[i]);
     }
+    console.log(formData)
     fetch(`http://127.0.0.1:8000/api/annonce/create/`, {
       method: 'POST',
       body: formData
