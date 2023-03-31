@@ -14,6 +14,7 @@ import CreateAnnonceForm from "./SecondAnncForm";
 import LeftSettinComp from "./LeftSettinComp";
 import AccountDetails from "./AccountDetailsComp";
 import Settings from "../Pages/Settings";
+import ResetPassword from "./Reset_password";
 // import Filters from "./FilterCom";
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
                 <Route path="/Register" element={<Reg_Form />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/Settings" element={<Settings />} />
-                <Route path="/AccountDetails" element={<AccountDetails />} />
+                <Route path="/AccountDetails" element={<AccountDetails />} /> 
+                <Route path="/ResetPassword" element={<ResetPassword/>}/>
 
             </Routes>
         </AuthProvider>

@@ -248,7 +248,6 @@ class ChangePasswordView(UpdateAPIView):
     def update(self,request,*args,**kwargs):
         self.object = self.get_object()
         serializer = self.get_serializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             # Check old password
             if not self.object.check_password(serializer.data.get("old_password")):
@@ -279,17 +278,11 @@ class updateUser(UpdateAPIView):
         serializer = self.get_serializer(data=request.data)
         data=request.data
         if serializer.is_valid():
-            
-            # usrname=data['username']
-            # photo=request.FILES.getlist('profile_pic')
-            # print(photo)
             usr=get_object_or_404(User,email=self.object)
-            if(data['username']!=usr.username)
-            # print(usr)
-            # usr.username=usrname
+            if(data['username']!=usr.username):
+                usr.username=data['username']
             for photo_file in request.FILES.getlist('profile_pic'):
                 usr.profile_pic=photo_file
-            
             usr.save()
             response = {
                     'status': 'success',

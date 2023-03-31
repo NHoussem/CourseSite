@@ -45,7 +45,7 @@ export default function Registration() {
             <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
                 <div>
                     <a href="/">
-                        <h3 className="text-4xl font-bold text-purple-600">
+                        <h3 className="text-4xl font-bold text-PrincipalCol">
                             InsightCours
                         </h3>
                     </a>
@@ -118,14 +118,14 @@ export default function Registration() {
                         </div>
                         <a
                             href="#"
-                            className="text-xs text-purple-600 hover:underline"
+                            className="text-xs text-PrincipalCol hover:underline"
                         >
                             Forget Password?
                         </a>
                         <div className="flex items-center mt-4">
                             <button 
 						            onClick={handleSubmit} 
-                                    className="w-full p-2 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                                    className="w-full p-2 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-PrincipalCol rounded-md hover:bg-PrincipalCol focus:outline-none focus:bg-PrincipalCol">
                                 Register
                             </button>
                         </div>
@@ -133,7 +133,7 @@ export default function Registration() {
                     <div className="mt-4 text-grey-600">
                         Already have an account?{" "}
                         <span>
-                            <a className="text-purple-600 hover:underline" href="/login">
+                            <a className="text-PrincipalCol hover:underline" href="/login">
                                 Log in
                             </a>
                         </span>

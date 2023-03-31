@@ -11,6 +11,10 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 import jwt
 from datetime import datetime, timedelta
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail 
 
 
 class Wilaya(models.Model):
@@ -172,3 +176,4 @@ class Photo(models.Model):
 
     def getAnnonceId(self):
         return self.annonce.getIdAnnonce()
+    

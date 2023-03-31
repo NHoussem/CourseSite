@@ -74,3 +74,7 @@
   transform: scale(1.08);
 }
 
+.ring-PrincipalCol {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(23 140 140 / var(--tw-ring-opacity));
+}

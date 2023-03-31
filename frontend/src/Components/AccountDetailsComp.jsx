@@ -2,14 +2,18 @@ import React, { useContext, useState,useRef } from "react";
 import AuthContext from "../context/AuthContext";
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from "react-router-dom";
+const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
 function AccountDetails() {
     const inputImages = useRef(null);
     let history = useNavigate()
     let {user,authTokens}=useContext(AuthContext)
     let length = "Houssem".length
-    const [Password1,setPassword1]=useState('')
-    const [Password2,setPassword2]=useState('')
-    const [oldPAssword,setOldPass]=useState('')
+    const [Password1,setPassword1]=useState('');
+    const [Password2,setPassword2]=useState('');
+    const [oldPAssword,setOldPass]=useState('');
+    const [Newusername,setusername]=useState('');
     const [image, setImage] = useState(null);
     const handlePass1Change =(event)=>{
         setPassword1(event.target.value)
@@ -26,11 +30,13 @@ function AccountDetails() {
     const handleImageChange=(e)=>{
         inputImages.current.click()
     }
+    const handleUsername=(e)=>{
+        setusername(e.target.value)
+    }
     let ChangePassword=async(e)=>{
         const formData = new FormData();
         formData.append('old_password', oldPAssword);
         formData.append('new_password', Password1);
-        
         const response = await fetch('http://127.0.0.1:8000/api/ChangePassword/',{
             method:'PUT',
             headers:{
@@ -38,14 +44,15 @@ function AccountDetails() {
                 'Authorization':'Bearer '+String(authTokens.access)
             },
             body:JSON.stringify({'old_password':oldPAssword,'new_password':Password1})})
-            .then(response=>response.json())
-            .then(data=>console.log(data))
+            // .then(response=>response.json())
+            // .then(data=>console.log(data))
             .catch(error=>console.error(error));
-            // history('/');
     }
     let ChangeInfos=async(e)=>{
         const formData = new FormData();
+        // console.log('done')
         formData.append('profile_pic', image);
+        formData.append('username',Newusername)
         console.log(authTokens.access)
         const response = await fetch(`http://127.0.0.1:8000/api/updateUserInfo/`,{
             method:'PUT',
@@ -53,23 +60,19 @@ function AccountDetails() {
                 'Authorization':'Bearer '+String(authTokens.access)
             },
             body: formData
-            // formData
-            // JSON.stringify({
-            //     'profile_pic':image
-            // })
         })
             .then(response=>response.json())
             .then(data=>console.log(data))
-            .catch(error=>console.error(error));
-            // history('/');
-    }
+            .catch(error=>console.error(error));    }
     const handleSubmit = e => {
         e.preventDefault()
-        // if(oldPAssword!=='' && Password1!==''){
-        //     ChangePassword()
-        // }
         ChangeInfos()
-        // history('/');
+        console.log('aaaa')
+        delay(99999999999999999999);
+        if(oldPAssword!=='' && Password1!==''){
+            ChangePassword()
+            }
+        history('/');
       };
     return (
 
@@ -78,12 +81,12 @@ function AccountDetails() {
             <hr className="bg-gray-200 h-px w-80" />
             <div className="grid grid-row">
                 <label htmlFor="Username" className="my-2">Username:</label>
-                <input type="text" readOnly value={user.username} className="border-2 border-gray-200 py-1 px-8 mx-10 shadow-lg" />
+                <input type="text" defaultValue={user.username} onChange={handleUsername} className="border-2 border-gray-200 py-1 px-8 mx-10 shadow-lg" />
             </div><div className="grid grid-row">
                 <label htmlFor="email " className="my-2">Email:</label>
                 <input type="text" readOnly value={user.email} className="border-2 border-gray-200 py-1 px-8 mx-10 shadow-lg" />
             </div>
-            <Form method="POST" onSubmit={handleSubmit}>
+            <Form method=" " onSubmit={handleSubmit}>
                 <div className="grid grid-row">
                     <label htmlFor="ChangePassword" className="text-bold text-gray-600 uppercase mt-2"> Changement de mot de passe</label>
                     <hr className="bg-gray-200 h-px w-80" />
