@@ -4,3 +4,4 @@ djangorestframework
 PyJWT
 django-cors-headers
 djangorestframework-simplejwt
+django_rest_passwordreset

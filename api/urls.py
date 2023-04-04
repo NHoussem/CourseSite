@@ -25,11 +25,8 @@ urlpatterns= [
     path('ChangePassword/',views.ChangePasswordView.as_view(), name='Chnage_Password'),
     path('updateUserInfo/',views.updateUser.as_view(), name='Update_usersinfo'),
     path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
-    path('reset_pass/', auth_views.PasswordResetView.as_view()),
-    path('reset_passDone/', auth_views.PasswordChangeDoneView.as_view()),
-    path('reset_passComplete/', auth_views.PasswordResetCompleteView.as_view()),
-    path('reset_passConfirme/', auth_views.PasswordResetConfirmView.as_view()),
-
+    path('reset_password/',views.forgetPasswordlink,name="ForgerpasswordLink"),
+    path('reset_passwordChange/',views.forgetPassword,name="Forgetpassword")
 
     
 ]

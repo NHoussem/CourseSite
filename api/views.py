@@ -17,8 +17,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated   
-
-
+from .helpers import send_forget_mail
+from uuid import uuid4
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -34,28 +34,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-# @api_view(['GET'])
-# def getAdresse(request):
-#     localisation=Adresse.objects.all()
-#     serialiser=LocaliSeria(localisation,many=True)    
-#     return Response(serialiser.data)
-# @api_view(['GET'])
-# def getRoutes(request):
-
-#     routes = [
-#         {
-#             'Endpoint': 'annonces/create/',
-#             'method': 'PUT',
-#             'Titre': {'Titre': ""},
-#             'Description' : {'Description': ""},
-#             'Tarif': {'Tarif': ""},
-#             'Categorie': {'Categorie': ""},
-#             'Modalite': {'Modalite': ""},
-#             'description': 'Creates new annonce with data sent in post request'
-#         },
-        
-#     ]
-#     return Response(routes)
+def my_view(request):
+    context = {
+        'date': timezone.now().date().strftime('%Y-%m-%d')
+    }
+    return render(request, 'my_template.html', context)
 class AnnonceListView(ListCreateAPIView):
     queryset=Annonce.objects.all()
     serializer_class=AnnonceSeria
@@ -265,6 +248,9 @@ class ChangePasswordView(UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def ForgetPassword(self,request,token) :
+        pass
+    
 
 class updateUser(UpdateAPIView):
     serializer_class=UpdateProfileSerializer
@@ -292,4 +278,50 @@ class updateUser(UpdateAPIView):
                 }
             return Response(response)
         return Response(serializer.error,status=status.HTTP_400_BAD_REQUEST)
-    
+@api_view(['POST'])
+def forgetPasswordlink (request):
+    try:
+        if request.method=='POST':
+            data=request.data
+            email=data['email']
+            if not User.objects.filter(email=email).first():
+                response = {
+                    'status': 'failed',
+                    'code': status.HTTP_404_NOT_FOUND,
+                    'message': 'heres no user with this email',
+                    'data': []
+                }
+                return Response(response)
+            user=get_object_or_404(User,email=email)
+            token=str(uuid4())
+            user.forget_password_token=token
+            user.save()
+            send_forget_mail(email,token)
+            response = {
+                    'status': 'success',
+                    'code': status.HTTP_200_OK,
+                    'message': 'mail sent succefully',
+                    'data': []
+            }
+            return Response(response)
+    except Exception as e:
+        print(e)
+@api_view(['POST'])
+def forgetPassword(request):
+        data=request.data
+        token=data['token']
+        password=data['Password']
+        print(password)
+        print(token)
+        user=get_object_or_404(User,forget_password_token=token)
+        print(user)
+        user.set_password(str(password))
+        # user.forget_password_token=None
+        user.save()
+        response = {
+                    'status': 'success',
+                    'code': status.HTTP_200_OK,
+                    'message': 'Password change succefully',
+                    'data': []
+            }
+        return Response(response)

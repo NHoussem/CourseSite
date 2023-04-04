@@ -28,8 +28,8 @@ const Slider = ({ slides }) => {
             key={index} 
           >
             {index === current && (
-              <div className="object-fill">
-                <img src={'http://127.0.0.1:8000' + slide.image} alt='travel image' className='object-contain w-full h-full max-h-96' />
+              <div className="object-cover">
+                <img src={'http://127.0.0.1:8000' + slide.image} alt='travel image' className='object-cover w-full h-full max-h-96' />
               </div>
               
             )}

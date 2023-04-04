@@ -111,6 +111,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that username already exists."),
         },
     )
+    forget_password_token=models.CharField(null=True, max_length=200)
     email = models.EmailField(_('email address'), blank=False, unique=True)
     profile_pic = models.ImageField(
         null=True, default=r"../media/images/man.png", upload_to="images/")
@@ -167,6 +168,8 @@ class Annonce(models.Model):
 
     def getIdAnnonce(self):
         return self.idAnnonce
+    def __str__(self):
+        return self.DatePublication.strftime('%Y-%m-%d')
 
 
 class Photo(models.Model):

@@ -67,8 +67,6 @@ function AccountDetails() {
     const handleSubmit = e => {
         e.preventDefault()
         ChangeInfos()
-        console.log('aaaa')
-        delay(99999999999999999999);
         if(oldPAssword!=='' && Password1!==''){
             ChangePassword()
             }

@@ -15,6 +15,7 @@ import LeftSettinComp from "./LeftSettinComp";
 import AccountDetails from "./AccountDetailsComp";
 import Settings from "../Pages/Settings";
 import ResetPassword from "./Reset_password";
+import ChangePassword from "./ChangePassword";
 // import Filters from "./FilterCom";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/Settings" element={<Settings />} />
                 <Route path="/AccountDetails" element={<AccountDetails />} /> 
                 <Route path="/ResetPassword" element={<ResetPassword/>}/>
+                <Route path="/reset_password/:token" element={<ChangePassword/>}/>
 
             </Routes>
         </AuthProvider>

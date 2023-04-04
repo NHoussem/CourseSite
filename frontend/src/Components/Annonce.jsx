@@ -16,13 +16,13 @@ function Annonce(props){
     const pathimage=images[0] && images[0].image
 
     return(   
-        <div className="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full p-1">
+        <div className="relative inline-block duration-300 max-w-72 ease-in-out transition-transform transform hover:-translate-y-2 w-full p-1">
             <div className="shadow-2xl rounded-2xl bg-white">
-                    <div className="h-60 flex justify-center items-center rounded-t-2xl">
-                        <img className="max-h-60 h-full   rounded-t-2xl object-fill" src={'http://127.0.0.1:8000' + pathimage} alt="teste" />
+                    <div className="h-60 max-h-60 object-cover  flex justify-center items-center rounded-t-2xl">
+                        <img className="h-full w-full max-h-38 rounded-t-2xl object-cover" src={'http://127.0.0.1:8000' + pathimage} alt="teste" />
                     </div>
-                    <div className="p-2">
-                        <h4 className=" text font-bold pt-2" >{props.Titre}</h4>
+                    <div className="p-2 h-60">
+                        <h4 className=" text font-bold pt-2 max-h-1" >{props.Titre}</h4>
                         <p className="max-10 pt-1.5">Date de Publication : {props.DatePublication}</p>
                         <p className="pt-1.5">Tarif: {props.Tarif}DA/heure</p>
                         <div className="flex flex-row mt-2 gap-2 pt-1.5">

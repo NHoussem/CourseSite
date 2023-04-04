@@ -32,16 +32,22 @@ class LocaliSeria(ModelSerializer):
         fields=('__all__')
 class AnnonceSeria(ModelSerializer):
     Localisation=LocaliSeria(many=False,read_only=True)
+    DatePublication = serializers.SerializerMethodField()
+    
+    def get_DatePublication(self, obj):
+        return obj.DatePublication.strftime('%Y-%m-%d')
+    
     class Meta:
         model=Annonce
         fields=('__all__')
+    
     def to_representation(self, instance):
         representation = dict()
         representation["id"] = instance.idAnnonce
         representation["Titre"] = instance.Titre
         representation["Description"] = instance.Description
         representation["Tarif"] = instance.Tarif
-        representation["DatePublication"] = instance.DatePublication
+        representation["DatePublication"] = self.get_DatePublication(instance)
         representation["Categorie"] = instance.Categorie
         representation["ThemeAnn"] = instance.ThemeAnn
         representation["Modalite"] = instance.Modalite
@@ -92,3 +98,6 @@ class UpdateProfileSerializer(serializers.Serializer):
     class Meta:
         model=User
         fields=('__all__')
+class ForgetPasswordSerialize(serializers.Serializer):
+    model=User
+    new_password=serializers.CharField(required=True)
