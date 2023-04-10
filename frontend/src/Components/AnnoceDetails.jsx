@@ -32,8 +32,8 @@ const DetailsAnnonce = () => {
         <Heada />
         <div className="lg:mx-40 my-10 border-solid shadow-2xl  rounded-2xl">
             <h1 className="p-5 text-2xl font-bold">{annonce.Titre}</h1>
-            <div className="relative aspect-video mx-10 object-fill">
-                <Slider slides={images} />
+            <div className="overflow-hidden aspect-video mx-10">
+                <Slider slides={images} className="h-full w-full object-cover" />
             </div>
             {/* <img key={image.image} className="w-full h-full rounded-2xl " src={'http://127.0.0.1:8000' + image.image}
             alt="testeImages" />) */}

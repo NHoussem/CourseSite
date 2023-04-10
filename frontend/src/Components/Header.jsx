@@ -165,8 +165,8 @@ function Heada(){
                         <img src={require('../images/add.png')} className="h-6 w-6" alt="ProfilePicture" />
                     </a>
                     <div>
-                        <button onClick={() => setUserDrop(!Userdropdwon)} className=" max-h-8 max-w-8 first-letter:p-2 dropdown-toggle text-black object-contain font-medium   text-xs   leading-tight    rounded        transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">
-                            <img src= {'http://127.0.0.1:8000'+user.profile_pic} className="rounded-full max-w-8 max-h-10" alt="ProfilePicture" />
+                        <button onClick={() => setUserDrop(!Userdropdwon)} className="rounded-full overflow-hidden h-10 w-10 first-letter:p-2 dropdown-toggle text-black object-contain font-medium   text-xs   leading-tight  transition   duration-150   ease-in-out   flex   items-center   whitespace-nowrap" type="button"   data-bs-toggle="dropdown"  aria-expanded="false">
+                            <img src= {'http://127.0.0.1:8000'+user.profile_pic} className="h-full w-full object-cover" alt="ProfilePicture" />
                         </button>
                         <ul  className={`dropdown-menu min-w-max  absolute bg-white  text-base  z-50  float-left  py-2  list-none  text-left  rounded-lg  shadow-lg  mt-1   m-0  bg-clip-padding  border-none ${Userdropdwon ? "block" : "hidden"}`}  aria-labelledby="dropdownDefaultButton">
                             <li>

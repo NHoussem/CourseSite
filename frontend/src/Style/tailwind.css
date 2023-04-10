@@ -78,3 +78,15 @@
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(23 140 140 / var(--tw-ring-opacity));
 }
+line-clamp-2{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
