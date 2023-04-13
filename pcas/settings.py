@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt.token_blacklist',
     'django_rest_passwordreset',
+    'django.contrib.sites',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -126,6 +127,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
